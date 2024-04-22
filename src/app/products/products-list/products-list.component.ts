@@ -11,6 +11,10 @@ import { parseProductsName } from '../../utils';
 export class ProductsListComponent {
   products: Product[] = [];
   isLoading: boolean = true;
+  currentPage: number = 1;
+  pageSize: number = 12;
+  totalPages: number = 0;
+  totalProducts: number = 0;
 
   constructor(
     private readonly productListService: ProductsListService,
@@ -18,10 +22,7 @@ export class ProductsListComponent {
   ) {}
 
   ngOnInit() {
-    this.productListService.getProductData().subscribe((products) => {
-      this.products = products;
-      this.isLoading = false;
-    });
+    this.loadProducts();
   }
 
   goToProductDescription(currentProduct: Product) {
@@ -34,5 +35,31 @@ export class ProductsListComponent {
     };
 
     this.router.navigate([`/products/details/${nameToId}`], urlData);
+  }
+
+  loadProducts() {
+    this.isLoading = true;
+    this.productListService
+      .getProductData(this.currentPage, this.pageSize)
+      .subscribe(({ products, totalPages, totalProducts }) => {
+        this.products = products;
+        this.totalPages = totalPages;
+        this.totalProducts = totalProducts;
+        this.isLoading = false;
+      });
+  }
+
+  onPrevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.loadProducts();
+    }
+  }
+
+  onNextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.loadProducts();
+    }
   }
 }

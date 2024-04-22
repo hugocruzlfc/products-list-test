@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import jsonFilePath from '../../shared/data/products.json';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, delay } from 'rxjs';
-import { Product } from '../../types';
+import { Product, ProductResponse } from '../../types';
 
 @Injectable({
   providedIn: 'root',
@@ -12,12 +12,17 @@ import { Product } from '../../types';
 export class ProductsListService {
   constructor(private http: HttpClient) {}
 
-  getProductData(): Observable<Product[]> {
+  getProductData(page: number, pageSize: number): Observable<ProductResponse> {
     //return this.http.get<Product[]>('API_URL');
 
     const products: Product[] = jsonFilePath;
 
-    const productsWithUUID = products.map((product, index) => {
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    const paginatedProducts = products.slice(startIndex, endIndex);
+    const totalPages = Math.ceil(products.length / pageSize);
+
+    const productsWithUUID = paginatedProducts.map((product, index) => {
       const productWithUUID: Product = {
         ...product,
         ID: uuidv4(),
@@ -25,7 +30,13 @@ export class ProductsListService {
       return productWithUUID;
     });
 
+    const response: ProductResponse = {
+      products: productsWithUUID,
+      totalPages,
+      totalProducts: products.length,
+    };
+
     // Simula una llamada API con un retraso de 1 segundos
-    return of(productsWithUUID).pipe(delay(1000));
+    return of(response).pipe(delay(1000));
   }
 }
