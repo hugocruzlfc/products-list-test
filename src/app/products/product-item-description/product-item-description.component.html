@@ -1,1 +1,26 @@
-<p>product-item-description works!</p>
+<div class="container mx-auto px-4">
+  <div class="bg-white p-8 rounded-lg shadow-md">
+    <div class="flex flex-col md:flex-row">
+      <div class="md:w-1/2 md:mr-8">
+        <img
+          src="{{ currentProduct.Image || currentProduct.Image1 }}"
+          alt="{{ currentProduct.Name }}"
+          class="w-full h-auto mb-4"
+        />
+        <h2 class="text-2xl font-semibold mb-2">{{ currentProduct.Name }}</h2>
+        <p class="text-gray-600 mb-4">{{ currentProduct.Price }}</p>
+        <button class="bg-blue-500 text-white py-2 px-4 rounded-md">
+          Agregar al carrito
+        </button>
+      </div>
+      <div class="md:w-1/2">
+        <h3 class="text-xl font-semibold mb-2">Description</h3>
+        <p>{{ currentProduct.Description_content }}</p>
+        <h3 class="text-xl font-semibold mt-4 mb-2">Details</h3>
+        <p>{{ currentProduct.Details }}</p>
+        <h3 class="text-xl font-semibold mt-4 mb-2">Care</h3>
+        <p>{{ currentProduct.Care }}</p>
+      </div>
+    </div>
+  </div>
+</div>

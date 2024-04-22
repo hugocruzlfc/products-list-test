@@ -12,7 +12,7 @@ import { Product } from '../../types';
 export class ProductsListService {
   constructor(private http: HttpClient) {}
 
-  getProductData(page: number, pageSize: number): Observable<Product[]> {
+  getProductData(): Observable<Product[]> {
     //return this.http.get<Product[]>('API_URL');
 
     const products: Product[] = jsonFilePath;
