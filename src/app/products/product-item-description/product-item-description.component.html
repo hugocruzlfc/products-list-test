@@ -39,12 +39,19 @@
         </button>
       </div>
       <div class="md:w-1/2">
+        <div class="flex justify-center text-center mb-5">
+          <p>
+            {{ currentProduct.Description_title }}
+          </p>
+        </div>
         <h3 class="text-xl font-semibold mb-2">Description</h3>
         <p>{{ currentProduct.Description_content }}</p>
-        <h3 class="text-xl font-semibold mt-4 mb-2">Details</h3>
-        <p>{{ currentProduct.Details }}</p>
-        <h3 class="text-xl font-semibold mt-4 mb-2">Care</h3>
-        <p>{{ currentProduct.Care }}</p>
+        <div *ngIf="currentProduct.Details !== ''">
+          <h3 class="text-xl font-semibold mt-4 mb-2">Details</h3>
+          <p>{{ currentProduct.Details }}</p>
+        </div>
+        <h3 class="text-xl font-semibold mt-4 mb-2">Promo</h3>
+        <p>{{ currentProduct.Promo_apply }}</p>
         <!-- Sección de revisiones -->
         <div class="mt-8" *ngIf="isObject(currentProduct.Reviews)">
           <h3 class="text-xl font-semibold mb-2">Reviews</h3>
