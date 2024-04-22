@@ -1,9 +1,9 @@
 <div class="container mx-auto px-4">
-  <div class="bg-white p-8 rounded-lg shadow-md relative">
-    <div class="flex flex-row justify-between items-center">
+  <div class="bg-white p-8 rounded-lg shadow-md">
+    <div class="flex flex-row justify-between items-center mb-5">
       <button
         (click)="goBack()"
-        class="text-slate-800 rounded-md border-gray-600 mb-5 p-1 hover:bg-slate-300 hover:border-slate-300 bg-slate-200"
+        class="text-slate-800 rounded-md border-gray-600 p-1 hover:bg-slate-300 hover:border-slate-300 bg-slate-200"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -34,12 +34,14 @@
         />
         <h2 class="text-2xl font-semibold mb-2">{{ currentProduct.Name }}</h2>
         <p class="text-gray-600 mb-4">{{ currentProduct.Price }}</p>
-        <button class="bg-blue-500 text-white py-2 px-4 rounded-md">
+        <button
+          class="mt-2 bg-cyan-500 text-white rounded-md text-sm md:text-xs h-8 px-5 w-full sm:w-1/6"
+        >
           Add to cart
         </button>
       </div>
       <div class="md:w-1/2">
-        <div class="flex justify-center text-center mb-5">
+        <div class="flex justify-center text-center mb-5 sm:mt-0 mt-5">
           <p>
             {{ currentProduct.Description_title }}
           </p>
@@ -54,11 +56,14 @@
         <p>{{ currentProduct.Promo_apply }}</p>
         <!-- Sección de revisiones -->
         <div class="mt-8" *ngIf="isObject(currentProduct.Reviews)">
-          <h3 class="text-xl font-semibold mb-2">Reviews</h3>
+          <div class="flex flex-row items-center gap-2 mb-2">
+            <h3 class="text-xl font-semibold">Reviews</h3>
+            <div class="text-gray-600 text-sm">({{ votes }} votes)</div>
+          </div>
+
           <div class="flex items-center">
             <div class="mr-2">
               <div class="flex">
-                <!-- Renderización de estrellas utilizando el método calculateStars() -->
                 <ng-container *ngFor="let star of calculateStars()">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +83,6 @@
                 {{ ratings }}
               </div>
             </div>
-            <div class="text-gray-600 text-sm">({{ votes }} votes)</div>
           </div>
         </div>
       </div>
