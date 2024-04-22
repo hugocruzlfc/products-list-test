@@ -1,24 +1,30 @@
 <div class="container mx-auto px-4">
   <div class="bg-white p-8 rounded-lg shadow-md relative">
-    <button
-      (click)="goBack()"
-      class="text-slate-800 rounded-md border-gray-600 mb-5 p-1 hover:bg-slate-300 hover:border-slate-300 bg-slate-200"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        class="w-6 h-6"
+    <div class="flex flex-row justify-between items-center">
+      <button
+        (click)="goBack()"
+        class="text-slate-800 rounded-md border-gray-600 mb-5 p-1 hover:bg-slate-300 hover:border-slate-300 bg-slate-200"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M15 19l-7-7 7-7"
-        />
-      </svg>
-    </button>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+      </button>
+      <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs">{{
+        currentProduct.Category
+      }}</span>
+    </div>
+
     <div class="flex flex-col md:flex-row">
       <div class="md:w-1/2 md:mr-8">
         <img
@@ -39,6 +45,35 @@
         <p>{{ currentProduct.Details }}</p>
         <h3 class="text-xl font-semibold mt-4 mb-2">Care</h3>
         <p>{{ currentProduct.Care }}</p>
+        <!-- Sección de revisiones -->
+        <div class="mt-8" *ngIf="isObject(currentProduct.Reviews)">
+          <h3 class="text-xl font-semibold mb-2">Reviews</h3>
+          <div class="flex items-center">
+            <div class="mr-2">
+              <div class="flex">
+                <!-- Renderización de estrellas utilizando el método calculateStars() -->
+                <ng-container *ngFor="let star of calculateStars()">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    class="w-4 h-4 text-yellow-500"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 0a1 1 0 0 1 .764.37l2.928 3.577 5.074.295a1 1 0 0 1 .553 1.705l-4.055 3.008 1.373 5.306a1 1 0 0 1-1.53 1.055L10 14.46l-4.24 2.853a1 1 0 0 1-1.53-1.054l1.373-5.307L.675 5.947a1 1 0 0 1 .553-1.705l5.074-.295L9.236.37A1 1 0 0 1 10 0zM10 12a1 1 0 0 1 .613.21l3.082 2.073-.936-3.616a1 1 0 0 1 .291-.914l2.493-1.852-3.428-.198a1 1 0 0 1-.763-.547L10 2.187l-1.36 3.318a1 1 0 0 1-.763.547l-3.428.198 2.493 1.852a1 1 0 0 1 .291.914l-.936 3.616L9.388 12.21A1 1 0 0 1 10 12z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </ng-container>
+              </div>
+              <div class="text-gray-600 text-sm mt-1">
+                {{ ratings }}
+              </div>
+            </div>
+            <div class="text-gray-600 text-sm">({{ votes }} votes)</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
