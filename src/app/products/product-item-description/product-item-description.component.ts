@@ -12,6 +12,7 @@ export class ProductItemDescriptionComponent {
   constructor(private router: Router) {
     const navigation = this.router.getCurrentNavigation();
 
-    this.currentProduct = navigation?.extras?.state!['product'];
+    this.currentProduct =
+      navigation?.extras?.state!['product'] || ({} as Product);
   }
 }
